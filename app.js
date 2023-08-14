@@ -54,7 +54,7 @@ function checkvalidinput(email, user, pasw, pasw2) {
   return true;
 }
 
-app.post('/register', async (req, res) => {
+/*app.post('/register', async (req, res) => {
   try {
     const email = req.body.email;
     const newuser = req.body.usname;
@@ -72,6 +72,6 @@ app.post('/register', async (req, res) => {
     console.log(error);
   }
 
-});
+});*/
 
 module.exports = app;

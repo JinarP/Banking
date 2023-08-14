@@ -11,38 +11,35 @@ html(lang="en")
 
   body
     html
-      section.vh-100(style="background-color: #eee;")
-        .container.h-100
-          .row.d-flex.justify-content-center.align-items-center.h-100
-            .col-lg-12.col-xl-11
-              .card.text-black(style="border-radius: 25px;")
-                .card-body.p-md-5
-                  .row.justify-content-center
-                    .col-md-10.col-lg-6.col-xl-5.order-2.order-lg-1
-
-                      p.text-center.h1.fw-bold.mb-5.mx-1.mx-md-4.mt-4 Sign up
-
-                      form(id = "form" action="/register", method="post")
-                        
-                        .d-flex.flex-row.align-items-center.mb-4
-                          .form-outline.flex-fill.mb-0
-                            input#username.form-control(name="usname", type="text", )
-                            label.form-label(for="form3Example1c") Username
-
-                        .d-flex.flex-row.align-items-center.mb-4
-                          .form-outline.flex-fill.mb-0
-                            input#email.form-control( name="email", type="email", )
-                            label.form-label(for="form3Example1c") Email
-
-                        .d-flex.flex-row.align-items-center.mb-4
-                          .form-outline.flex-fill.mb-0
-                            input#password.form-control(name="password", type="password", )
-                            label.form-label(for="form3Example4c") Password
-
-                        .d-flex.flex-row.align-items-center.mb-4
-                          .form-outline.flex-fill.mb-0
-                            input#password2.form-control(name="repetpw", type="password", )
-                            label.form-label(for="form3Example4cd") Repeat your password
-
-                        .d-flex.justify-content-center.mx-4.mb-3.mb-lg-4
-                          button.btn.btn-primary.btn-lg(type="submit", onclick="window.location.href='/register'") Register
+     html(lang="en")
+head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Form Validation
+    link(rel="preconnect", href="https://fonts.googleapis.com")
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap", rel="stylesheet")
+    link(rel="stylesheet", href="public/stylesheets/register.css")
+    script(src="/public/javascripts/validregister.css")
+body
+    .container
+        form#form
+            h1 Sign up
+            .input-control
+                label(for="username") Username
+                input#username(name="username", type="text")
+                .error
+            .input-control
+                label(for="email") Email
+                input#email(name="email", type="text")
+                .error
+            .input-control
+                label(for="password") Password
+                input#password(name="password", type="password")
+                .error
+            .input-control
+                label(for="password2") Password again
+                input#password2(name="password2", type="password")
+                .error
+            button(type="submit") Sign Up
