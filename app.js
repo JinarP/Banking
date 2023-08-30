@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
 const client = require("./routes/dbconection");
+app.use(express.json())
 let path = require("path");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 
 
@@ -16,7 +18,11 @@ app.get ('/', (req, res) => {
 })
 
 app.get ('/register', (req, res) => {
-  res.render('register')
+  res.render("register")
+});
+
+app.get ('/startpage', (req, res) => {
+  res.render("profile")
 });
 
 let username;
@@ -27,10 +33,10 @@ app.post('/login', async (req, res) => {
     const users = await client.query('SELECT name FROM users WHERE name = $1', [username]);
     const validpsw = await client.query('SELECT password FROM users WHERE name = $1', [username]);
     if ((users.rows.length > 0 && username === users.rows[0].name) && (psw === validpsw.rows[0].password)) {
-      res.render('startpage')
+      res.render('profile')
     } else {
       const message = "Wrong username or password"
-      res.render('wrongmessage', {message: message});
+      res.render('errormessage', {message: message});
     }
   } catch (error) {
     console.log(error);
@@ -54,24 +60,25 @@ function checkvalidinput(email, user, pasw, pasw2) {
   return true;
 }
 
-/*app.post('/register', async (req, res) => {
+app.post('/register', async (req, res) => {
   try {
     const email = req.body.email;
-    const newuser = req.body.usname;
+    const newuser = req.body.username;
     const password = req.body.password;
-    const repetpasword = req.body.repetpw;
-
+    const repetpasword = req.body.password2;
+    console.log(req.body);
     if (checkvalidinput(email, newuser, password, repetpasword)) {
-      res.render('startpage')
-    } else {
-      const message = 'sumphing is wrong'
-      res.render('errormessage' , {message: message});
-    }
+      client.query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3)', [newuser, password, email])
+      res.json({ success: true }); // Trimite un răspuns JSON pentru validare reușită
+   } else {
+     const message = 'Username already exist'
+     res.json({ success: false, message: message }); // Trimite un răspuns JSON pentru validare eșuată
+   }
 
   } catch (error) {
     console.log(error);
   }
 
-});*/
+});
 
 module.exports = app;

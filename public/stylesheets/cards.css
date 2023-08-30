@@ -1,0 +1,52 @@
+#card {
+    width: 300px;
+    height: 180px;
+    background-color: yellow;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position:absolute;
+    left:40%;
+    top: 20%;
+}
+#card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+#card-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+#card-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#card-number p {
+    margin: 0;
+    font-size: 16px;
+}
+
+#action{
+    position: absolute;
+    top: 60%;
+    left: 25%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#button {
+    position:absolute;
+    top:50%;
+    left: 47%;
+}
