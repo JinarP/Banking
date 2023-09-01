@@ -6,10 +6,14 @@
   border-radius: 26px;
   max-width: 450px;
   position:absolute;
-  left: 40%;
-  top: 20%;
+  left: 35%;
+  top: 5%;
 }
-  
+  #title{
+    margin: 10px;
+    display:flex;
+    justify-content:center;
+  }
   .form {
     display: flex;
     flex-direction: column;
@@ -17,38 +21,13 @@
     padding: 20px;
   }
   
-  .payment--options {
-    width: calc(100% - 40px);
-    display: grid;
-    grid-template-columns: 33% 34% 33%;
-    gap: 20px;
-    padding: 10px;
-  }
-  
-  .payment--options button {
-    height: 55px;
-    background: #F2F2F2;
-    border-radius: 11px;
-    padding: 0;
-    border: 0;
-    outline: none;
-  }
-  
-  .payment--options button svg {
-    height: 18px;
-  }
-  
-  .payment--options button:last-child svg {
-    height: 22px;
-  }
-  
+
   .separator {
-    width: calc(100% - 20px);
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
     color: #8B8E98;
-    margin: 0 10px;
+    
   }
   
   .separator > p {
@@ -110,12 +89,6 @@
     transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
   }
   
-  .input_field:focus {
-    border: 1px solid transparent;
-    box-shadow: 0px 0px 0px 2px #242424;
-    background-color: transparent;
-  }
-  
   .purchase--btn {
     height: 55px;
     background: #F2F2F2;
@@ -130,14 +103,16 @@
     transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
   }
   
-  .purchase--btn:hover {
-    box-shadow: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #0000003a;
-  }
-  
-  /* Reset input number styles */
-  .input_field::-webkit-outer-spin-button,
-  .input_field::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
+.input_container.success input {
+    border-color: #09c372;
+}
+
+.input_container.error input {
+    border-color: #ff3860;
+}
+
+.input_container.error {
+    color: #ff3860;
+    font-size: 9px;
+    height: 13px;
+}

@@ -30,6 +30,7 @@ app.get ('/errors', (req, res) => {
 });
 
 let username;
+let iduser;
 app.post('/login', async (req, res) => {
   try {
     username = req.body.username;
@@ -37,7 +38,7 @@ app.post('/login', async (req, res) => {
     const users = await client.query('SELECT name FROM users WHERE name = $1', [username]);
     const validpsw = await client.query('SELECT password FROM users WHERE name = $1', [username]);
     if ((users.rows.length > 0 && username === users.rows[0].name) && (psw === validpsw.rows[0].password)) {
-
+      iduser = await client.query('SELECT id FROM users WHERE name = $1', [username])
       res.render('profile')
     } else {
       const message = "Wrong username or password"
@@ -75,10 +76,11 @@ app.post('/register', async (req, res) => {
     
     if (await checkvalidinput(email, newuser, password, repetpasword)) {
       client.query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3)', [newuser, password, email])
-      res.json({ success: true }); // Trimite un răspuns JSON pentru validare reușită
+      iduser = await client.query('SELECT id FROM users WHERE name = $1', [newuser]);
+      res.json({ success: true });
    } else {
      const message = 'Username already exist'
-     res.json({ success: false, message: message }); // Trimite un răspuns JSON pentru validare eșuată
+     res.json({ success: false, message: message });
    }
 
   } catch (error) {
@@ -88,6 +90,10 @@ app.post('/register', async (req, res) => {
 
 app.get('/addcard',(req, res) => {
   res.render('newcard');
+})
+
+app.post('/addcard', async (req, res) => {
+  console.log(req.body);
 })
 
 module.exports = app;

@@ -11,23 +11,45 @@ html(lang="en")
     link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap", rel="stylesheet")
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9", crossorigin="anonymous")
     link(rel="stylesheet", href="public/stylesheets/newcard.css")
+    script(src="/public/javascripts/validcard.js")
   body
+  button(onclick="cc()")
   div.card
-   form.form
+   h2#title ADD YOUR CARD
+   form.form(action = "/addcard", method="post")
     .separator
       hr.line
       hr.line
     .credit-card-info--form
       .input_container
-        label.input_label(for="password_field") Card holder full name
-        input.input_field(type="text" name="input-name" title="Input title" placeholder="Enter your full name")
+        label.input_label Card holder full name
+        input.input_field(id = "card woner" type="text" name="card woner" placeholder="Enter your full name")
+       .error 
+
       .input_container
-        label.input_label(for="password_field") Card Number
-        input.input_field(type="number" name="input-name" title="Input title" placeholder="0000 0000 0000 0000")
+        label.input_label Card name
+        input.input_field(type="text" name="card name" placeholder="Cheltuieli")
+        .error 
+
       .input_container
-        label.input_label(for="password_field") Expiry Date / CVV
+        label.input_label iban
+        input.input_field(type="text" name="iban" placeholder="Type your iban here")
+
+      .input_container
+        label.input_label Card Number
+        input.input_field(type="number" name="card number" placeholder="0000 0000 0000 0000")
+
+      .input_container
+        label.input_label Expiry Date / CVV
         .split
-          input.input_field(type="text" name="input-name" title="Expiry Date" placeholder="01/23")
+          input.input_field(type="text" name="expire date" title="Expiry Date" placeholder="01/23")
           input.input_field(type="number" name="cvv" title="CVV" placeholder="CVV")
-    button.purchase--btn Checkout
+
+      .input_container
+        label.input_label Moneda / PIN
+        .split
+          input.input_field(type="text" name="moneda" placeholder="EURO")
+          input.input_field(type="password" name="pin" title="CVV" placeholder="PIN CODE")
+
+    button.purchase--btn(data-action="submit") Checkout
 

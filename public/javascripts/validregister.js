@@ -7,7 +7,6 @@ let valid = true;
 function finish() {
     validateInputs();
     if (valid) {
-        console.log('a')
         const postData = {
             email: email.value,
             username: username.value,
