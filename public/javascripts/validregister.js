@@ -27,7 +27,7 @@ function finish() {
                 if (data.success) {
                     window.location.href = '/startpage';
                 } else {
-                    console.error(data.message);
+                    setError(username, 'Username allready exist chose ather one')
                 }
             })
             .catch(error => {

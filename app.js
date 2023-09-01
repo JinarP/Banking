@@ -25,6 +25,10 @@ app.get ('/startpage', (req, res) => {
   res.render("profile")
 });
 
+app.get ('/errors', (req, res) => {
+  res.render("errormessage" ,{message:"eser allready exist"})
+});
+
 let username;
 app.post('/login', async (req, res) => {
   try {
@@ -33,6 +37,7 @@ app.post('/login', async (req, res) => {
     const users = await client.query('SELECT name FROM users WHERE name = $1', [username]);
     const validpsw = await client.query('SELECT password FROM users WHERE name = $1', [username]);
     if ((users.rows.length > 0 && username === users.rows[0].name) && (psw === validpsw.rows[0].password)) {
+
       res.render('profile')
     } else {
       const message = "Wrong username or password"
@@ -43,14 +48,15 @@ app.post('/login', async (req, res) => {
   }
 });
 
-function checkvalidinput(email, user, pasw, pasw2) {
+async function checkvalidinput (email, user, pasw, pasw2) {
   if (!emailValidator.validate(email)) {
     return false;
   }
-
-  const exist = client.query("SELECT name FROM users WHERE name = $1", [user]);
-  if (exist.rowCount === 0) {
+  
+  const exist = await client.query("SELECT id FROM users WHERE name = $1", [user]);
+  if (exist.rowCount > 0) {
       return false;
+      
   }
   
   if (pasw != pasw2) {
@@ -66,8 +72,8 @@ app.post('/register', async (req, res) => {
     const newuser = req.body.username;
     const password = req.body.password;
     const repetpasword = req.body.password2;
-    console.log(req.body);
-    if (checkvalidinput(email, newuser, password, repetpasword)) {
+    
+    if (await checkvalidinput(email, newuser, password, repetpasword)) {
       client.query('INSERT INTO users (name, password, email) VALUES ($1, $2, $3)', [newuser, password, email])
       res.json({ success: true }); // Trimite un răspuns JSON pentru validare reușită
    } else {
@@ -78,7 +84,10 @@ app.post('/register', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
 });
+
+app.get('/addcard',(req, res) => {
+  res.render('newcard');
+})
 
 module.exports = app;

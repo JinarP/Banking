@@ -4,7 +4,7 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Form Validation
+    title profile
     link(rel="preconnect", href="https://fonts.googleapis.com")
     link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js", integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm", crossorigin="anonymous")
@@ -27,21 +27,21 @@ html(lang="en")
           hr
           ul.nav.nav-pills.flex-column.mb-auto
             li
-              a(href="#", class="nav-link text-white")
+              a(class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                button.btn.btn-outline-primary(type="button") Vezi iban
+                a.btn.btn-outline-primary(href="/addcard" type="button") Adauga card
             li
-              a(href="#", class="nav-link text-white")
+              a( class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                button.btn.btn-outline-primary(type="button") Adauga card
+                a.btn.btn-outline-primary(type="button") Vezi iban
             li
-              a(href="#", class="nav-link text-white")
+              a(class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                button.btn.btn-outline-primary(type="button") Sterge card
+                a.btn.btn-outline-primary(type="button") Sterge card
             li
-              a(href="#", class="nav-link text-white")
+              a(class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                button.btn.btn-outline-primary(type="button") Detalii card
+                a.btn.btn-outline-primary(type="button") Detalii card
           hr
           .dropdown
             a(href="#", class="d-flex align-items-center text-white text-decoration-none dropdown-toggle", data-bs-toggle="dropdown", aria-expanded="false")

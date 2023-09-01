@@ -23,9 +23,10 @@
 }
 #card-number {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;    
+    flex-wrap:wrap;
+    height: 55%;
 }
 #card-number p {
     margin: 0;
