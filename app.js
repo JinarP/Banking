@@ -11,7 +11,6 @@ app.use(express.static(__dirname));
 
 app.set('view engine', 'jade');
 const emailValidator = require('deep-email-validator');
-const { error } = require('console');
 
 app.get ('/', (req, res) => {
   res.render('login')

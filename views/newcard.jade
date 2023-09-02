@@ -13,43 +13,46 @@ html(lang="en")
     link(rel="stylesheet", href="public/stylesheets/newcard.css")
     script(src="/public/javascripts/validcard.js")
   body
-  button(onclick="cc()")
+  
   div.card
    h2#title ADD YOUR CARD
    form.form(action = "/addcard", method="post")
-    .separator
-      hr.line
-      hr.line
     .credit-card-info--form
       .input_container
         label.input_label Card holder full name
-        input.input_field(id = "card woner" type="text" name="card woner" placeholder="Enter your full name")
-       .error 
+        input.input_field(id = "cardOwner" type="text" name="cardOwner" placeholder="Enter your full name")
+        .error
 
       .input_container
         label.input_label Card name
-        input.input_field(type="text" name="card name" placeholder="Cheltuieli")
-        .error 
+        input.input_field(id = "cardName" type="text" name="cardName" placeholder="Cheltuieli")
+        .error
 
       .input_container
         label.input_label iban
-        input.input_field(type="text" name="iban" placeholder="Type your iban here")
+        input.input_field(id = "iban" type="text" name="iban" placeholder="Type your iban here")
+        .error
 
       .input_container
         label.input_label Card Number
-        input.input_field(type="number" name="card number" placeholder="0000 0000 0000 0000")
+        input.input_field(id = "number" type="number" name="card number" placeholder="0000 0000 0000 0000")
+        .error
 
       .input_container
         label.input_label Expiry Date / CVV
         .split
-          input.input_field(type="text" name="expire date" title="Expiry Date" placeholder="01/23")
-          input.input_field(type="number" name="cvv" title="CVV" placeholder="CVV")
+          input.input_field(id = "data" type="date" min="2023-09-01" name="expire date" placeholder="01/23")
+          input.input_field(id = "cvv" type="number" name="cvv" title="CVV" placeholder="CVV")
+          .error
 
       .input_container
         label.input_label Moneda / PIN
         .split
-          input.input_field(type="text" name="moneda" placeholder="EURO")
-          input.input_field(type="password" name="pin" title="CVV" placeholder="PIN CODE")
+          input.input_field(id = "moneda" type="text" name="moneda" placeholder="EURO")
+          input.input_field(id = "pin" type="password" name="pin" title="CVV" placeholder="PIN CODE")
+          .error
 
     button.purchase--btn(data-action="submit") Checkout
+   
+   button(onclick="finish()")
 

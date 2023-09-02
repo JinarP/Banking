@@ -1,10 +1,14 @@
-const username = document.getElementById('username');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const password2 = document.getElementById('password2');
+let username;
+let email;
+let password;
+let password2;
 let valid = true;
 
 function finish() {
+     username = document.getElementById('username');
+     email = document.getElementById('email');
+     password = document.getElementById('password');
+     password2 = document.getElementById('password2');
     validateInputs();
     if (valid) {
         const postData = {
@@ -65,10 +69,10 @@ const isValidEmail = email => {
 }
 
 const validateInputs = () => {
-    const usernameValue = username.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
-    const password2Value = password2.value.trim();
+    const usernameValue = username.value;
+    const emailValue = email.value;
+    const passwordValue = password.value;
+    const password2Value = password2.value;
 
     if (usernameValue === '') {
         setError(username, 'Username is required');
