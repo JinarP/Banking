@@ -10,17 +10,48 @@ let valid = true;
 
 
 function finish() {
-     cardOwner = document.getElementById('cardOwner').value;
-     cardName = document.getElementById('cardName').value;
-     iban = document.getElementById('iban').value;
-     number = document.getElementById('number').value;
-     data = document.getElementById('data').value;
-     pin = document.getElementById('pin').value;
-     cvv = document.getElementById('cvv').value;
-     moneda = document.getElementById('moneda').value;
-     validate();
+     cardOwner = document.getElementById('cardOwner');
+     cardName = document.getElementById('cardName');
+     iban = document.getElementById('iban');
+     number = document.getElementById('number');
+     data = document.getElementById('data');
+     pin = document.getElementById('pin');
+     cvv = document.getElementById('cvv');
+     moneda = document.getElementById('moneda');
+     validate();    
 
-    // Modificarea ID-ului pentru a evita spațiile și erorile de scriere
+     if (valid) {
+        const postData = {
+            cardOwner: cardOwner.value,
+            cardName: cardName.value,
+            iban: iban.value,
+            number: number.value,
+            data:data.value,
+            pin: pin.value,
+            cvv: cvv.value,
+            moneda: moneda.value
+        };
+
+        fetch('/addcard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/startpage';
+                } else {
+                    setError(username, data.message)
+                }
+            })
+            .catch(error => {
+                console.error('Eroare:', error);
+            });
+    }
+    valid = true;    
 
 }
 
@@ -46,9 +77,41 @@ function setSuccess (element) {
 function validate () {
     if (iban.length != 16) {
         setError(iban, 'IBAN inavli choose ather')
-    } 
-    if (number.length != 16) {
-        setError(number, 'Card bumber invalid choose other')
+    } else {
+        setSuccess(iban);
     }
+    if (number.length != 16) {
+        setError(number, 'Card number invalid choose other')
+    } else {
+        setSuccess(number)
+    }
+    if (pin.length != 4) {
+        setError(pin, 'Pin code is invalid')
+    } else {
+        let err = 1;
+        for (let i = 0; i < pin.length; ++i) {
+            if (pin[i] < '0' || pin[i] > 9) {
+                err = 0;
+            }
+        }
+        if (err == 0) {
+            setError(pin, 'Pin code can not contain letter');
+        } else {
+            setSuccess(pin);
+        }
+    }
+
+    if (cvv.length !=3) {
+        setError(cvv, 'CVV invalid')
+    } else (
+        setSuccess(cvv)
+    )
+    const monede =['euro', 'ron', 'dolar', 'lire'];
+    
+    if (monede.includes(moneda.value.toLowerCase())) {
+        setSuccess(moneda)
+    } else (
+        setError(moneda, 'Inavild moned choose ather')
+    )
     
 }

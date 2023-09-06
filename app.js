@@ -78,7 +78,7 @@ app.post('/register', async (req, res) => {
       iduser = await client.query('SELECT id FROM users WHERE name = $1', [newuser]);
       res.json({ success: true });
    } else {
-     const message = 'Username already exist'
+     const message = 'Username allready exist chose ather one'
      res.json({ success: false, message: message });
    }
 
@@ -92,7 +92,7 @@ app.get('/addcard',(req, res) => {
 })
 
 app.post('/addcard', async (req, res) => {
-  console.log(req.body);
+  const clientCards = await client.query('SELECT FROM ')
 })
 
 module.exports = app;
