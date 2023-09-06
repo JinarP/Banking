@@ -30,7 +30,7 @@ function finish() {
                 if (data.success) {
                     window.location.href = '/startpage';
                 } else {
-                    setError(username, 'Username allready exist chose ather one')
+                    setError(username, data.message)
                 }
             })
             .catch(error => {
@@ -53,10 +53,6 @@ const setError = (element, message) => {
 const setSuccess = element => {
     const inputControl = element.parentElement;
     const errorDisplay = inputControl.querySelector('.error');
-    if (valid) {
-        valid = true;
-    }
-
 
     errorDisplay.innerText = '';
     inputControl.classList.add('success');
