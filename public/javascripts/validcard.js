@@ -75,22 +75,27 @@ function setSuccess (element) {
 }
 
 function validate () {
-    if (iban.length != 16) {
-        setError(iban, 'IBAN inavli choose ather')
+    const ibanval = iban.value.toString();
+    const numberval = number.value.toString();
+
+    console.log(ibanval.length)
+    if (ibanval.length != 16) {
+        
+        setError(iban, 'IBAN inavlid choose ather')
     } else {
         setSuccess(iban);
     }
-    if (number.length != 16) {
+    if (numberval.length != 16) {
         setError(number, 'Card number invalid choose other')
     } else {
         setSuccess(number)
     }
-    if (pin.length != 4) {
+    if (pin.value < 1000 || pin.value > 9999) {
         setError(pin, 'Pin code is invalid')
     } else {
         let err = 1;
         for (let i = 0; i < pin.length; ++i) {
-            if (pin[i] < '0' || pin[i] > 9) {
+            if (pin[i] < '0' || pin[i] > '9') {
                 err = 0;
             }
         }
@@ -101,7 +106,7 @@ function validate () {
         }
     }
 
-    if (cvv.length !=3) {
+    if (cvv.length <100 || cvv.length > 999) {
         setError(cvv, 'CVV invalid')
     } else (
         setSuccess(cvv)

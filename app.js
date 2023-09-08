@@ -20,7 +20,9 @@ app.get ('/register', (req, res) => {
   res.render("register")
 });
 
-app.get ('/startpage', (req, res) => {
+app.get ('/startpage', async (req, res) => {
+  const clientCards = await client.query('SELECT nr_card, iban, cardname FROM cards WHERE id_persoana = $1', [iduser])
+  console.log(clientCards)
   res.render("profile")
 });
 
@@ -92,7 +94,23 @@ app.get('/addcard',(req, res) => {
 })
 
 app.post('/addcard', async (req, res) => {
-  const clientCards = await client.query('SELECT FROM ')
-})
+  const clientCards = await client.query('SELECT nr_card, iban, cardname FROM cards WHERE id_persoana = $1', [iduser])
+  if (clientCards.rowCount > 0) {
+    const message = 'Card name most be unic';
+    res.json({ success: false, message: message });
+  } else {
+    const cardName = req.body.cardName;
+    const moneda = req.body.moneda;
+    const cvv = req.body.cvv;
+    const data = req.body.data;
+    const iban = req.body.iban;
+    const pin = req.body.pin;
+    client.query('INSERT INTO cards (moneda, iban, pin, cardname, nr_card, cvv, expdata) VALUES ($1, $2, $3, $4, $5, $6, $7', [
+      moneda, iban, pin, cardName,  cardName, cvv, data
+    ])
+    
+    res.json({success: true});
+  }
+});
 
 module.exports = app;
