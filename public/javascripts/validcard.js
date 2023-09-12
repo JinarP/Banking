@@ -9,6 +9,7 @@ let moneda;
 let valid = true;
 
 
+
 function finish() {
      cardOwner = document.getElementById('cardOwner');
      cardName = document.getElementById('cardName');
@@ -79,7 +80,7 @@ function validate () {
     const numberval = number.value.toString();
 
     console.log(ibanval.length)
-    if (ibanval.length != 16) {
+    if (ibanval.length != 24) {
         
         setError(iban, 'IBAN inavlid choose ather')
     } else {

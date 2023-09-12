@@ -2,6 +2,7 @@ let username;
 let email;
 let password;
 let password2;
+let names;
 let valid = true;
 
 function finish() {
@@ -9,13 +10,15 @@ function finish() {
      email = document.getElementById('email');
      password = document.getElementById('password');
      password2 = document.getElementById('password2');
+     names = document.getElementById('name');
     validateInputs();
     if (valid) {
         const postData = {
             email: email.value,
             username: username.value,
             password: password.value,
-            password2: password2.value
+            password2: password2.value,
+            names: names.value
         };
 
         fetch('/register', {
@@ -28,7 +31,7 @@ function finish() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '/startpage';
+                    window.location.href = '/addcard';
                 } else {
                     setError(username, data.message)
                 }
@@ -69,7 +72,13 @@ const validateInputs = () => {
     const emailValue = email.value;
     const passwordValue = password.value;
     const password2Value = password2.value;
-
+    
+    if (names.value === '') {
+       setError(names, 'Name can not be empty')
+    } else {
+        setSuccess(names);
+    }
+    
     if (usernameValue === '') {
         setError(username, 'Username is required');
 
