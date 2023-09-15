@@ -11,6 +11,7 @@ html(lang="en")
     link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap", rel="stylesheet")
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9", crossorigin="anonymous")
     link(rel="stylesheet", href="public/stylesheets/cards.css")
+    script(src="/public/javascripts/validregister.js")
   body
     #card
       #card-header
@@ -39,4 +40,4 @@ html(lang="en")
           .card-header Plati online
           .card-body
             p.card-text Plateste facturi variabile
-            button(type="button", class="btn btn-dark") Plateste acum
+            button(type="button", class="btn btn-dark"  onclick = "window.location.href = 'https://www.digi.ro/plata'") Plateste acum

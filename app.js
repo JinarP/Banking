@@ -55,8 +55,6 @@ app.post('/login', async (req, res) => {
 
       nr_card = nr_card.rows[0].nr_card;
       cardname = cardname.rows[0].cardname;
-
-      console.log(iduser, nr_card)
       
 
       res.render('profile', {username, names, nr_card, cardname})
@@ -133,5 +131,9 @@ app.post('/addcard', async (req, res) => {
   }
   
 });
+
+app.get ('/paynew', (req, res) => {
+    res.send('https://www.digi.ro/plata')
+})
 
 module.exports = app;
