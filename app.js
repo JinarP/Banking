@@ -132,8 +132,8 @@ app.post('/addcard', async (req, res) => {
   
 });
 
-app.get ('/paynew', (req, res) => {
-    res.send('https://www.digi.ro/plata')
+app.get ('/paylist', (req, res) => {
+    res.render("onlinepay")
 })
 
 module.exports = app;
