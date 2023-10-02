@@ -1,24 +1,56 @@
 const express = require('express');
 const app = express();
-const client = require("./routes/dbconection");
+const client = require("./database/dbconection");
+const {nana} = require("./helper/login")
 
 app.use(express.json())
+app.use(require('./api/auth'));
 let path = require("path");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
+
+const port = 3000;
+const stripe = require('stripe')('sk_test_51Nw5DuHwuemefw88QbRaIi5bO5GiFWEH3jpIaUDDo6RCyivN6I10gIYSFsAJLM913DKlhzk6XW6tUaZ48u83bsHf00hLucdNy7');
+
+async function  pp(number) {
+  const paymentIntent = await stripe.paymentIntents.create({
+  amount: parseInt(number),
+  currency: 'gbp',
+  payment_method: 'pm_card_visa',
+});
+
+
+console.log(paymentIntent.amount);
+}
+
+const nr = nana();
+console.log(nr)
+
+
+
+app.post('/pay', async (req, res) => {
+   let value = req.body.value
+   pp(value);
+});
+
+
 let username;
 let iduser;
 let names;
 let nr_card;
 
 app.set('view engine', 'jade');
-const emailValidator = require('deep-email-validator');
+
 
 app.get ('/', (req, res) => {
   res.render('login')
 })
+
+
+
+
 
 app.get ('/register', (req, res) => {
   res.render("register")
@@ -33,79 +65,11 @@ app.get ('/startpage', async (req, res) => {
 });
 
 app.get ('/errors', (req, res) => {
-  res.render("errormessage" ,{message:"eser allready exist"})
+  res.render("errormessage" ,{message:"user allready exist"})
 });
 
 
-app.post('/login', async (req, res) => {
-  try {
-    username = req.body.username;
-    const psw = req.body.password;
-    const users = await client.query('SELECT username FROM users WHERE username = $1', [username]);
-    const validpsw = await client.query('SELECT password FROM users WHERE username = $1', [username]);
 
-    if ((users.rows.length > 0 && username === users.rows[0].username) && (psw === validpsw.rows[0].password)) {
-      iduser = await client.query('SELECT id FROM users WHERE username = $1', [username])
-      names = await client.query('SELECT name FROM users WHERE username = $1', [username])
-      iduser = iduser.rows[0].id
-      names = names.rows[0].name;
-      
-      nr_card = await client.query("SELECT nr_card FROM cards WHERE id_persoana = $1", [iduser]);
-      let cardname = await client.query("SELECT cardname FROM cards WHERE id_persoana = $1", [iduser])
-
-      nr_card = nr_card.rows[0].nr_card;
-      cardname = cardname.rows[0].cardname;
-      
-
-      res.render('profile', {username, names, nr_card, cardname})
-    } else {
-      const message = "Wrong username or password"
-      res.render('errormessage', {message: message});
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-async function checkvalidinput (email, user, pasw, pasw2) {
-  if (!emailValidator.validate(email)) {
-    return false;
-  }
-  
-  const exist = await client.query("SELECT id FROM users WHERE username = $1", [user]);
-  if (exist.rowCount > 0) {
-      return false;
-      
-  }
-  
-  if (pasw != pasw2) {
-    return false
-  }
-
-  return true;
-}
-
-app.post('/register', async (req, res) => {
-  try {
-    const email = req.body.email;
-    const newuser = req.body.username;
-    const password = req.body.password;
-    const repetpasword = req.body.password2;
-    names = req.body.names;
-    
-    if (await checkvalidinput(email, newuser, password, repetpasword)) {
-      client.query('INSERT INTO users (username, password, email, name) VALUES ($1, $2, $3)', [newuser, password, email, names])
-      iduser = await client.query('SELECT id FROM users WHERE username = $1', [newuser]);
-      res.json({ success: true });
-   } else {
-     const message = 'Username allready exist chose ather one'
-     res.json({ success: false, message: message });
-   }
-
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 app.get('/addcard',(req, res) => {
   res.render('newcard');
@@ -133,7 +97,10 @@ app.post('/addcard', async (req, res) => {
 });
 
 app.get ('/paylist', (req, res) => {
-    res.render("onlinepay")
+    res.render("pay")
 })
 
-module.exports = app;
+app.listen(port, () => {
+
+  console.log(`Example app listening at http://localhost:${port}`);
+});

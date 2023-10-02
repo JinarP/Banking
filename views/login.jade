@@ -22,10 +22,10 @@ html(lang="en")
         form#login(action="/login", method="POST")
           .form-group
             label Username
-            input.form-control(name="username", required="", type="text")
+            input.form-control(name="username", type="text")
           .form-group
             label Password
-            input.form-control(name="password", required="", type="password")
+            input.form-control(name="password", type="password")
           .form-actions
             div
               button.g-recaptcha.btn.btn-success(data-action="submit", id="login-button")
