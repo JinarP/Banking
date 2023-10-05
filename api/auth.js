@@ -1,78 +1,56 @@
 const express = require('express');
 const app = express.Router()
 const client = require("../database/dbconection");
-const emailValidator = require('deep-email-validator');
+const {userData, validData} = require('../helper/login');
+const {checkValidInput} = require('../helper/register');
 
 app.use(express.urlencoded({ extended: true }));
 
 app.post('/login', async (req, res) => {
   try {
-    const username =  req.body.username;
-    console.log(req.body)
+    const username = req.body.username;
     const psw = req.body.password;
-    const users = await client.query('SELECT username FROM users WHERE username = $1', [username]);
-    const validpsw = await client.query('SELECT password FROM users WHERE username = $1', [username]);
 
+    const usAndPsw = validData(username);
+    const users = (await usAndPsw).user;
+    const validpsw = (await usAndPsw).pasw;
     if ((users.rows.length > 0 && username === users.rows[0].username) && (psw === validpsw.rows[0].password)) {
-      let  iduser = await client.query('SELECT id FROM users WHERE username = $1', [username])
-      let names = await client.query('SELECT name FROM users WHERE username = $1', [username])
-      iduser = iduser.rows[0].id
-      names = names.rows[0].name;
-      let nr_card = await client.query("SELECT nr_card FROM cards WHERE id_persoana = $1", [iduser]);
-      let cardname = await client.query("SELECT cardname FROM cards WHERE id_persoana = $1", [iduser])
+      const userdate = userData(username);
+      let names = (await userdate).name
+      let nr_card = (await userdate).nr_card
+      let cardname = (await userdate).cardname
 
-      nr_card = nr_card.rows[0].nr_card;
-      cardname = cardname.rows[0].cardname;
-      
-      res.render('profile', {username, names, nr_card, cardname})
+      res.render('profile', { username, names, nr_card, cardname })
     } else {
       const message = "Wrong username or password"
-      res.render('errormessage', {message: message});
+      res.render('errormessage', { message: message });
     }
-  
+
   } catch (error) {
     console.log(error);
   }
 });
 
-async function checkvalidinput (email, user, pasw, pasw2) {
-    if (!emailValidator.validate(email)) {
-      return false;
-    }
-    
-    const exist = await client.query("SELECT id FROM users WHERE username = $1", [user]);
-    if (exist.rowCount > 0) {
-        return false;
-        
-    }
-    
-    if (pasw != pasw2) {
-      return false
-    }
-  
-    return true;
-  }
-  
+
 app.post('/register', async (req, res) => {
-    try {
-      const email = req.body.email;
-      const newuser = req.body.username;
-      const password = req.body.password;
-      const repetpasword = req.body.password2;
-      const names = req.body.names;
-      
-      if (await checkvalidinput(email, newuser, password, repetpasword)) {
-        client.query('INSERT INTO users (username, password, email, name) VALUES ($1, $2, $3, $4)', [newuser, password, email, names])
-        iduser = await client.query('SELECT id FROM users WHERE username = $1', [newuser]);
-        res.json({ success: true });
-     } else {
-       const message = 'Username allready exist chose ather one'
-       res.json({ success: false, message: message });
-     }
-  
-    } catch (error) {
-      console.log(error);
+  try {
+    const email = req.body.email;
+    const newuser = req.body.username;
+    const password = req.body.password;
+    const names = req.body.names;
+    
+    if (await checkValidInput(email, newuser)) {
+      client.query('INSERT INTO users (username, password, email, name) VALUES ($1, $2, $3, $4)', [newuser, password, email, names])
+      iduser = await client.query('SELECT id FROM users WHERE username = $1', [newuser]);
+      res.json({ success: true });
+    } else {
+      const message = 'Username allready exist chose ather one'
+      res.json({ success: false, message: message });
     }
-  });
-  
+
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = app;
