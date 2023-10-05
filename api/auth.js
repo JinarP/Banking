@@ -1,11 +1,11 @@
 const express = require('express');
-const router = express.Router()
+const app = express.Router()
 const client = require("../database/dbconection");
 const emailValidator = require('deep-email-validator');
 
-router.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
-router.post('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     const username =  req.body.username;
     console.log(req.body)
@@ -18,7 +18,6 @@ router.post('/login', async (req, res) => {
       let names = await client.query('SELECT name FROM users WHERE username = $1', [username])
       iduser = iduser.rows[0].id
       names = names.rows[0].name;
-      
       let nr_card = await client.query("SELECT nr_card FROM cards WHERE id_persoana = $1", [iduser]);
       let cardname = await client.query("SELECT cardname FROM cards WHERE id_persoana = $1", [iduser])
 
@@ -54,7 +53,7 @@ async function checkvalidinput (email, user, pasw, pasw2) {
     return true;
   }
   
-router.post('/register', async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
       const email = req.body.email;
       const newuser = req.body.username;
@@ -76,4 +75,4 @@ router.post('/register', async (req, res) => {
     }
   });
   
-module.exports = router;
+module.exports = app;
