@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router()
-const client = require("../database/dbconection");
+const client = require("../dbconection");
 
 async function validData(username) {
   const users = await client.query('SELECT username FROM users WHERE username = $1', [username]);

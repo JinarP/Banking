@@ -22,21 +22,21 @@ app.get ('/register', (req, res) => {
   res.render("register")
 });
 
-app.get ('/startpage', async (req, res) => {
+app.get ('/user/startpage', async (req, res) => {
   const cardname = await client.query('SELECT cardname FROM cards WHERE id_persoana = $1', [iduser]);
   cardname = cardname.rows[0].cardname
   res.render("profile", {username, names, nr_card, cardname});
 });
 
-app.get ('/errors', (req, res) => {
+app.get ('/user/errors', (req, res) => {
   res.render("errormessage" ,{message:"user allready exist"})
 });
 
-app.get('/addcard',(req, res) => {
+app.get('/payments/addcard',(req, res) => {
   res.render('newcard');
 })
 
-app.get ('/paylist', (req, res) => {
+app.get ('/payments/onlinepay', (req, res) => {
     res.render("pay")
 })
 

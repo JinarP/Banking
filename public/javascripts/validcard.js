@@ -33,7 +33,7 @@ function finish() {
             moneda: moneda.value
         };
 
-        fetch('/addcard', {
+        fetch('/payments/addcard', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ function finish() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '/startpage';
+                    window.location.href = '/user/startpage';
                 } else {
                     setError(username, data.message)
                 }

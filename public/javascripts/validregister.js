@@ -31,7 +31,7 @@ function finish() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '/addcard';
+                    window.location.href = '/payments/addcard';
                 } else {
                     setError(username, data.message)
                 }

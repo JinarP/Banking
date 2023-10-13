@@ -1,11 +1,18 @@
 const express = require('express');
 const app = express.Router()
 const client = require("../database/dbconection");
-app.use(require('./auth'));
+app.use(express.json())
 
-app.post('/addcard', async (req, res) => {
-    const clientCards = await client.query('SELECT cardname FROM cards WHERE id_persoana = $1', [iduser])
-    if (clientCards.rowCount > 0) {
+app.use(require('./auth'));
+const {createNewCard} = require('../database/payments/newCards');
+const {existingCards} = require('../database/payments/existingCards');
+const {userData} = require('../database/user/login');
+
+
+app.post('/payments/addcard', async (req, res) => {
+    
+    const iduser = userData.iduser
+    if (1 > 0) {
       const message = 'Card name most be unic';
       res.json({ success: false, message: message });
     } else {
@@ -16,9 +23,8 @@ app.post('/addcard', async (req, res) => {
       const iban = req.body.iban;
       const pin = req.body.pin;
       const nr_card = req.body.number;
+      await createNewCard(moneda, iban, pin, cardName,  nr_card, cvv, data, iduser)
       
-      client.query('INSERT INTO cards (moneda, iban, pin, cardname, nr_card, cvv, expdata, id_persoana) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [moneda, iban, pin, cardName,  nr_card, cvv, data, iduser])
-  
       res.json({success: true});
     }
   });
