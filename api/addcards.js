@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express.Router()
-const client = require("../database/dbconection");
 app.use(express.json())
 
 app.use(require('./auth'));
@@ -12,7 +11,7 @@ const {userData} = require('../database/user/login');
 app.post('/payments/addcard', async (req, res) => {
     
     const iduser = userData.iduser
-    if (1 > 0) {
+    if (await existingCards(iduser) > 0) {
       const message = 'Card name most be unic';
       res.json({ success: false, message: message });
     } else {
