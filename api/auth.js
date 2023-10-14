@@ -1,13 +1,11 @@
 const express = require('express');
 const app = express.Router()
-const client = require("../database/dbconection");
 const {userData, validData} = require('../database/user/login');
 const {checkValidInput} = require('../database/user/register');
 const {createacount} = require('../database/user/createAcount')
-
-
 app.use(express.urlencoded({ extended: true }));
 
+let id;
 app.post('/user/login', async (req, res) => {
   try {
     const username = req.body.username;
@@ -18,7 +16,7 @@ app.post('/user/login', async (req, res) => {
     const validpsw = (await usAndPsw).pasw;
     if ((users.rows.length > 0 && username === users.rows[0].username) && (psw === validpsw.rows[0].password)) {
       const userdate = userData(username);
-      console.log((await userdate).iduser)
+      id = (await userdate).iduser
       let names = (await userdate).name
       let nr_card = (await userdate).nr_card
       let cardname = (await userdate).cardname
@@ -35,7 +33,7 @@ app.post('/user/login', async (req, res) => {
 });
 
 
-app.post('/register', async (req, res) => {
+app.post('/user/register', async (req, res) => {
   try {
     const email = req.body.email;
     const newuser = req.body.username;
@@ -54,5 +52,6 @@ app.post('/register', async (req, res) => {
     console.log(error);
   }
 });
+
 
 module.exports = app;

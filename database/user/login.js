@@ -13,30 +13,29 @@ async function validData(username) {
   return data;
 }
 
-async function userData (username) {
-      let iduser = await client.query('SELECT id FROM users WHERE username = $1', [username])
-      let names = await client.query('SELECT name FROM users WHERE username = $1', [username])
-      iduser = iduser.rows[0].id
-      names = names.rows[0].name;
-      let nr_card = await client.query("SELECT nr_card FROM cards WHERE id_persoana = $1", [iduser]);
-      let cardname = await client.query("SELECT cardname FROM cards WHERE id_persoana = $1", [iduser])
+async function selectData (username) {
+  let iduser = await client.query('SELECT id FROM users WHERE username = $1', [username])
+  let names = await client.query('SELECT name FROM users WHERE username = $1', [username])
+  iduser = iduser.rows[0].id
+  names = names.rows[0].name;
+  let nr_card = await client.query("SELECT nr_card FROM cards WHERE id_persoana = $1", [iduser]);
+  let cardname = await client.query("SELECT cardname FROM cards WHERE id_persoana = $1", [iduser])
 
-      nr_card = nr_card.rows[0].nr_card;
-      cardname = cardname.rows[0].cardname;
-
-      let userDatas = {
+  nr_card = nr_card.rows[0].nr_card;
+  cardname = cardname.rows[0].cardname;
+  const userDatas = {
         name: names,
         iduser: iduser,
         nr_card: nr_card,
         cardname: cardname
       };
-      return userDatas;
-
+    return userDatas
 }
 
-module.exports={userData, validData}
+async function userData (username) {
+      const userDatas = await selectData(username);
+      return userDatas;
+}
 
-// const {nana, bla} = require("./helper/login")
-// const nr = nana();
-// const num = bla();
-// console.log(nr, num)
+
+module.exports={userData, validData}

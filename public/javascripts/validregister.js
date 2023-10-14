@@ -21,7 +21,7 @@ function finish() {
             names: names.value
         };
 
-        fetch('/register', {
+        fetch('/user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
