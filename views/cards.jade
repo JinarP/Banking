@@ -19,24 +19,24 @@ html(lang="en")
         p Card name: #{cardname}
         p Number: #{nr_card}
 
-    button#button(type="button", class="btn btn-info") afisare sold
+    button#button(type="button", class="btn btn-info") Balance display
 
     #action
       .container
         .card.text-bg-warning.mb-3(style="max-width: 15rem;margin: 5px;")
-          .card-header Treansfer
+          .card-header Sent
           .card-body
-            p.card-text Trimite bani usor si repede
+            p.card-text Sent money fast and easy
             button(type="button", class="btn btn-dark") Trimite
 
         .card.text-bg-primary.mb-3(style="max-width: 15rem;margin: 5px;")
-          .card-header Facturi lunare
+          .card-header Monthly bills
           .card-body
-            p.card-text Inregistreaza plati fixe lunare
-            button(type="button", class="btn btn-dark") Adauga factura
+            p.card-text Register monthly pay
+            button(type="button", class="btn btn-dark") Add invoice
 
         .card.text-bg-success.mb-3(style="max-width: 15rem;margin: 5px;")
-          .card-header Plati online
+          .card-header Online pay
           .card-body
-            p.card-text Plateste facturi variabile
-            button(type="button", class="btn btn-dark"  onclick = "window.location.href = '/payments/onlinepay'") Plateste acum
+            p.card-text Pay variable invoice
+            button(type="button", class="btn btn-dark"  onclick = "window.location.href = '/payments/onlinepay'") Pay now

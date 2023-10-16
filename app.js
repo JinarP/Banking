@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-
 app.use(express.json())
 app.use(require('./api/auth'));
 app.use(require('./api/stripe'));
@@ -11,6 +10,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 app.set('view engine', 'jade');
+const {userData} = require('./database/user/login');
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 const port = 3000;
 app.get ('/', (req, res) => {
@@ -22,9 +24,12 @@ app.get ('/user/register', (req, res) => {
 });
 
 app.get ('/user/startpage', async (req, res) => {
-  let cardname = await client.query('SELECT cardname FROM cards WHERE id_persoana = $1', [4]);
-  cardname = cardname.rows[0].cardname
-  res.render("profile");
+  const username = localStorage.getItem('data');
+  const data = userData(username);
+  const names = (await data).name;
+  const nr_card = (await data).nr_card;
+  const cardname = (await data).cardname
+  res.render("profile", {username, names, nr_card, cardname});
 });
 
 app.get ('/user/errors', (req, res) => {

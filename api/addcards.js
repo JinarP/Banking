@@ -17,13 +17,13 @@ app.post('/payments/addcard', async (req, res) => {
       res.json({ success: false, message: message });
     } else {
       const cardName = req.body.cardName;
-      const moneda = req.body.moneda;
+      const coin = req.body.coin;
       const cvv = req.body.cvv;
       const data = req.body.data;
       const iban = req.body.iban;
       const pin = req.body.pin;
       const nr_card = req.body.number;
-      await createNewCard(moneda, iban, pin, cardName, nr_card, cvv, data, iduser)
+      await createNewCard(coin, iban, pin, cardName, nr_card, cvv, data, iduser)
       res.json({success: true});
     }
   });
