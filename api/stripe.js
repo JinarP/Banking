@@ -15,7 +15,6 @@ async function  pp(number) {
     payment_method: 'pm_card_visa',
   });
   
-  console.log(paymentIntent.amount);
   }
   
   app.post('/pay', async (req, res) => {

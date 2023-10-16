@@ -3,15 +3,16 @@ const app = express.Router()
 app.use(express.json())
 app.use(require('./auth'));
 const {createNewCard} = require('../database/payments/newCards');
-const {existingCards} = require('../database/payments/existingCards');
-const {idus} = require('../database/user/login');
-
-
+const {existingCards} = require('../database/payments/existCards');
+const {userData} = require('../database/user/login');
+var LocalStorage = require('node-localstorage').LocalStorage,
+localStorage = new LocalStorage('./scratch');
 
 app.post('/payments/addcard', async (req, res) => {
-    let id = 4;
-    console.log(id);
-    if (await existingCards(id) > 0) {
+    let username = localStorage.getItem('data');
+    const data = userData(username);
+    const iduser = (await data).iduser;
+    if (await existCards(iduser) > 0) {
       const message = 'Card name most be unic';
       res.json({ success: false, message: message });
     } else {
@@ -22,8 +23,7 @@ app.post('/payments/addcard', async (req, res) => {
       const iban = req.body.iban;
       const pin = req.body.pin;
       const nr_card = req.body.number;
-      
-      
+      await createNewCard(moneda, iban, pin, cardName, nr_card, cvv, data, iduser)
       res.json({success: true});
     }
   });

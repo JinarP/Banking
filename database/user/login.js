@@ -20,7 +20,6 @@ async function selectData (username) {
   names = names.rows[0].name;
   let nr_card = await client.query("SELECT nr_card FROM cards WHERE id_persoana = $1", [iduser]);
   let cardname = await client.query("SELECT cardname FROM cards WHERE id_persoana = $1", [iduser])
-
   nr_card = nr_card.rows[0].nr_card;
   cardname = cardname.rows[0].cardname;
   const userDatas = {
@@ -37,5 +36,4 @@ async function userData (username) {
       return userDatas;
 }
 
-
-module.exports={userData, validData}
+module.exports = {userData, validData}

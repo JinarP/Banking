@@ -78,8 +78,6 @@ function setSuccess (element) {
 function validate () {
     const ibanval = iban.value.toString();
     const numberval = number.value.toString();
-
-    console.log(ibanval.length)
     if (ibanval.length != 24) {
         
         setError(iban, 'IBAN inavlid choose ather')
