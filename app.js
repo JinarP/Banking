@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
-const client = require("./database/dbconection");
 
 app.use(express.json())
 app.use(require('./api/auth'));
 app.use(require('./api/stripe'));
-app.use(require('./api/addcards'))
+app.use(require('./api/addcards'));
 let path = require("path");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -13,9 +12,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 app.set('view engine', 'jade');
 
-
 const port = 3000;
-
 app.get ('/', (req, res) => {
   res.render('login')
 })
