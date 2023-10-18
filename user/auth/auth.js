@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express.Router()
-const {userData, validData, userDatas} = require('../database/user/login');
-const {checkValidInput} = require('../database/user/register');
-const {createacount} = require('../database/user/createAcount')
+const {userData, validData, userDatas} = require('../login/login');
+const {checkValidInput} = require('../register/register');
+const {createacount} = require('../register/createAcount')
 app.use(express.urlencoded({ extended: true }));
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
@@ -22,10 +22,10 @@ app.post('/user/login', async (req, res) => {
       let names = (await userdate).name
       let nr_card = (await userdate).nr_card
       let cardname = (await userdate).cardname
-      res.render('profile', {username, names, nr_card, cardname})
+      res.render('user/profile', {username, names, nr_card, cardname})
     } else {
       const message = "Wrong username or password"
-      res.render('errormessage', { message: message });
+      res.render('error/errormessage', { message: message });
     }
   } catch (error) {
     console.log(error);

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express.Router()
-const client = require("../dbconection");
+const client = require("../../database/dbconection");
 const emailValidator = require('deep-email-validator');
 
 async function checkValidInput(email, user) {
