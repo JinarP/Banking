@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 app.use(express.json())
-app.use(require('./Controller/auth'));
-app.use(require('./Controller/stripe'));
-app.use(require('./Controller/addCards'));
+app.use(require('./controll/auth'));
+app.use(require('./controller/stripe'));
+app.use(require('./controller/addCards'));
 let path = require("path");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
