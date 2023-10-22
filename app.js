@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
 app.use(express.json())
-app.use(require('./user/auth'));
-app.use(require('./payments/stripe'));
-app.use(require('./payments/addCards'));
+app.use(require('./Controller/auth'));
+app.use(require('./Controller/stripe'));
+app.use(require('./Controller/addCards'));
 let path = require("path");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname));
 app.set('view engine', 'jade');
-const {userData} = require('./user/login');
+const {userData} = require('./database/login');
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
 

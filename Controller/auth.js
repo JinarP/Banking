@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express.Router()
-const {userData, validData, userDatas} = require('./login');
-const {checkValidInput} = require('./register');
-const {createacount} = require('./createAcount')
+const {userData, validData, userDatas} = require('../database/login');
+const {checkValidInput} = require('../helper/register');
+const {createacount} = require('../helper/createAcount')
 app.use(express.urlencoded({ extended: true }));
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
