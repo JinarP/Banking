@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express.Router()
 app.use(express.json())
-app.use(require('./auth'));
-const {createNewCard} = require('../database/newCards');
-const {existingCards} = require('../helper/checkCardsExist');
-const {userData} = require('../database/login');
+app.use(require('../user'));
+const {createNewCard} = require('../../modal/payments/newCards');
+const {existingCards} = require('../../modal/payments/checkCardsExist');
+const {userData} = require('../../modal/user/login');
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
 

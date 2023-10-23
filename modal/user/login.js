@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express.Router()
-const client = require("./dbconection");
+const client = require("../database/dbconection");
 
-async function validData(username) {
+async function getUserByUsername(username) {
   const users = await client.query('SELECT username FROM users WHERE username = $1', [username]);
   const validpsw = await client.query('SELECT password FROM users WHERE username = $1', [username]);
   let data = {
@@ -32,4 +32,4 @@ async function userData (username) {
   return userDatas
 }
 
-module.exports = {userData, validData}
+module.exports = {userData, getUserByUsername}

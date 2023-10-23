@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express.Router()
-const {userData, validData, userDatas} = require('../database/login');
-const {checkValidInput} = require('../helper/register');
-const {createacount} = require('../helper/createAcount')
+const {userData, getUserByUsername} = require('../modal/user/login');
+const {checkValidInput} = require('../modal/user/register');
+const {createAcount} = require('../modal/user/createAcount')
 app.use(express.urlencoded({ extended: true }));
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
@@ -12,7 +12,7 @@ app.post('/user/login', async (req, res) => {
   try {
     const username = req.body.username;
     const psw = req.body.password;
-    const usAndPsw = validData(username);
+    const usAndPsw = getUserByUsername(username);
     const users = (await usAndPsw).user;
     const validpsw = (await usAndPsw).pasw;
     if ((users.rows.length > 0 && username === users.rows[0].username) && (psw === validpsw.rows[0].password)) {
@@ -39,7 +39,7 @@ app.post('/user/register', async (req, res) => {
     const password = req.body.password;
     const names = req.body.names;
     if (await checkValidInput(email, newuser)) {
-      await createacount(newuser, password, email, names);
+      await createAcount(newuser, password, email, names);
       res.json({ success: true });
     } else {
       const message = 'Username allready exist chose ather one'
