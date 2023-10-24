@@ -1,12 +1,27 @@
 const express = require('express');
 const app = express.Router()
 app.use(express.json())
-app.use(require('../user'));
-const {createNewCard} = require('../../modal/payments/newCards');
-const {existingCards} = require('../../modal/payments/checkCardsExist');
-const {userData} = require('../../modal/user/login');
+const {createNewCard} = require('../model/payments');
+const {existingCards} = require('../model/payments');
+const {userData} = require('../model/user');
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
+
+const stripe = require('stripe')('sk_test_51Nw5DuHwuemefw88QbRaIi5bO5GiFWEH3jpIaUDDo6RCyivN6I10gIYSFsAJLM913DKlhzk6XW6tUaZ48u83bsHf00hLucdNy7');
+
+async function  makePay(number) {
+    await stripe.paymentIntents.create({
+    amount: parseInt(number),
+    currency: 'gbp',
+    payment_method: 'pm_card_visa',
+  });
+  }
+  
+  app.post('/pay', async (req, res) => {
+     let value = req.body.value
+     makePay(value);
+     res.render('newcard')
+  });
 
 app.post('/payments/addcard', async (req, res) => {
     let username = localStorage.getItem('data');
@@ -27,5 +42,13 @@ app.post('/payments/addcard', async (req, res) => {
       res.json({success: true});
     }
   });
+
+  app.get('/payments/addcard',(req, res) => {
+    res.render('payments/newcard');
+  })
+  
+  app.get ('/payments/onlinepay', (req, res) => {
+      res.render("payments/pay")
+  })
 
   module.exports = app;

@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express.Router()
-const {userData, getUserByUsername} = require('../modal/user/login');
-const {checkValidInput} = require('../modal/user/register');
-const {createAcount} = require('../modal/user/createAcount')
+const {userData, getUserByUsername} = require('../model/user');
+const {checkValidInput} = require('../model/user');
+const {createAcount} = require('../model/user')
 app.use(express.urlencoded({ extended: true }));
 var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
@@ -49,6 +49,27 @@ app.post('/user/register', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+app.get ('/', (req, res) => {
+  res.render('user/login')
+})
+
+app.get ('/user/register', (req, res) => {
+  res.render("user/register")
+});
+
+app.get ('/user/startpage', async (req, res) => {
+  const username = localStorage.getItem('data');
+  const data = userData(username);
+  const names = (await data).name;
+  const nr_card = (await data).nr_card;
+  const cardname = (await data).cardname
+  res.render("user/profile", {username, names, nr_card, cardname});
+});
+
+app.get ('/user/errors', (req, res) => {
+  res.render("error/errormessage" ,{message:"user allready exist"})
 });
 
 module.exports = app;
