@@ -17,17 +17,17 @@ html(lang="en")
         h2 #{names}
       #card-number
         p Card name: #{cardname}
-        p Number: #{nr_card}
+        p Number: 2384 XXXX XXXX XXXX
 
     button#button(type="button", class="btn btn-info") Balance display
 
     #action
       .container
         .card.text-bg-warning.mb-3(style="max-width: 15rem;margin: 5px;")
-          .card-header Sent
+          .card-header Online pay
           .card-body
-            p.card-text Sent money fast and easy
-            button(type="button", class="btn btn-dark") Trimite
+            p.card-text  Pay variable invoice 
+            button(type="button", class="btn btn-dark") Pay now
 
         .card.text-bg-primary.mb-3(style="max-width: 15rem;margin: 5px;")
           .card-header Monthly bills
@@ -36,7 +36,7 @@ html(lang="en")
             button(type="button", class="btn btn-dark") Add invoice
 
         .card.text-bg-success.mb-3(style="max-width: 15rem;margin: 5px;")
-          .card-header Online pay
+          .card-header Sent money
           .card-body
-            p.card-text Pay variable invoice
-            button(type="button", class="btn btn-dark"  onclick = "window.location.href = '/payments/onlinepay'") Pay now
+            p.card-text Sent money fast and easy
+            button(type="button", class="btn btn-dark"  onclick = "window.location.href = '/payments/onlinepay'") Sent

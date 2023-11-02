@@ -15,40 +15,40 @@ html(lang="en")
     button.btn.btn-primary(type="button", data-bs-toggle="offcanvas", data-bs-target="#offcanvasExample", aria-controls="offcanvasExample")
       svg(width="24", height="24")
         path(d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z")
-    .offcanvas.offcanvas-start#offcanvasExample(tabindex="-1", aria-labelledby="offcanvasExampleLabel" style="color:dark;")
-      .offcanvas-header
-        h5.offcanvas-title#offcanvasExampleLabel Offcanvas
+    .offcanvas.offcanvas-start#offcanvasExample(style ="--bs-offcanvas-bg:#444c55" tabindex="-1", aria-labelledby="offcanvasExampleLabel" )
+      .offcanvas-header(style="height:10px;")
+        h5.offcanvas-title#offcanvasExampleLabel 
         button.btn-close(type="button", data-bs-dismiss="offcanvas", aria-label="Close")
       .offcanvas-body
         .d-flex.flex-column.flex-shrink-0.p-3.text-bg-dark(style="width: 100%; height: 100%")
           a(href="/", class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none")
             svg.bi.pe-none.me-2(width="40", height="32")
               use(xlink:href="#bootstrap")
-            span.fs-4 Sidebar
+            span.fs-4 Settings
           hr
           ul.nav.nav-pills.flex-column.mb-auto
             li
               a(class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(href="/payments/addcard" type="button") Adauga card
+                a.btn.btn-outline-primary(href="/payments/addcard" type="button") Add new card
             li
               a( class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(type="button") Vezi iban
+                a.btn.btn-outline-primary(type="button") View iban
             li
               a(class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(type="button") Sterge card
+                a.btn.btn-outline-primary(type="button") Delate this card
             li
               a(class="nav-link text-white")
                 svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(type="button") Detalii card
+                a.btn.btn-outline-primary(type="button") View card details 
           hr
           .dropdown
             a(href="#", class="d-flex align-items-center text-white text-decoration-none dropdown-toggle", data-bs-toggle="dropdown", aria-expanded="false")
               img(style="color: white;" alt="" width="32" height="32" class="rounded-circle me-2")
               strong #{username}
-            ul.dropdown-menu.dropdown-menu-dark.text-small.shadow(style="")
+            ul.dropdown-menu.dropdown-menu-dark.text-small.shadow
               li
                 a.dropdown-item(href="#") New project...
               li
