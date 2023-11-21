@@ -41,13 +41,14 @@
 
 .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: relative;
+    left: 10%;
 }
 
 #button {
     position:absolute;
     top:50%;
-    left: 47%;
+    left: 45%;
 }

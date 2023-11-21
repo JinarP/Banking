@@ -4,60 +4,39 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title profile
+    title Profile
     link(rel="preconnect", href="https://fonts.googleapis.com")
-    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+    link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)    
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js", integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm", crossorigin="anonymous")
     link(href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap", rel="stylesheet")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous")
     link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9", crossorigin="anonymous")
-  
   body
-    button.btn.btn-primary(type="button", data-bs-toggle="offcanvas", data-bs-target="#offcanvasExample", aria-controls="offcanvasExample")
-      svg(width="24", height="24")
-        path(d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z")
-    .offcanvas.offcanvas-start#offcanvasExample(style ="--bs-offcanvas-bg:#444c55" tabindex="-1", aria-labelledby="offcanvasExampleLabel" )
-      .offcanvas-header(style="height:10px;")
-        h5.offcanvas-title#offcanvasExampleLabel 
-        button.btn-close(type="button", data-bs-dismiss="offcanvas", aria-label="Close")
-      .offcanvas-body
-        .d-flex.flex-column.flex-shrink-0.p-3.text-bg-dark(style="width: 100%; height: 100%")
-          a(href="/", class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none")
-            svg.bi.pe-none.me-2(width="40", height="32")
-              use(xlink:href="#bootstrap")
-            span.fs-4 Settings
-          hr
-          ul.nav.nav-pills.flex-column.mb-auto
-            li
-              a(class="nav-link text-white")
-                svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(href="/payments/addcard" type="button") Add new card
-            li
-              a( class="nav-link text-white")
-                svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(type="button") View iban
-            li
-              a(class="nav-link text-white")
-                svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(type="button") Delate this card
-            li
-              a(class="nav-link text-white")
-                svg.bi.pe-none.me-2(width="16", height="16")
-                a.btn.btn-outline-primary(type="button") View card details 
-          hr
-          .dropdown
-            a(href="#", class="d-flex align-items-center text-white text-decoration-none dropdown-toggle", data-bs-toggle="dropdown", aria-expanded="false")
-              img(style="color: white;" alt="" width="32" height="32" class="rounded-circle me-2")
-              strong #{username}
-            ul.dropdown-menu.dropdown-menu-dark.text-small.shadow
-              li
-                a.dropdown-item(href="#") New project...
-              li
-                a.dropdown-item(href="#") Settings
-              li
-                a.dropdown-item(href="#") Profile
-              li
-                hr.dropdown-divider
-              li
-                a.dropdown-item(href="#") Sign out
-
-      
+  nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.w-100(aria-label='Third navbar example' style = "position: absolute; z-index: 1000; background-color: #fff;")
+   .container-fluid
+      .dropdown(style="left: 2%;")
+          a(href="#", class="d-flex align-items-center text-white text-decoration-none dropdown-toggle", data-bs-toggle="dropdown", aria-expanded="false") Cards
+           ul.dropdown-menu.dropdown-menu-dark.text-small.shadow
+             li
+               a.dropdown-item(href="/payments/addcard") Add new cards
+             li
+               a.dropdown-item(href="#") View iban
+             li
+               a.dropdown-item(href="#") View card data
+             li
+               hr.dropdown-divider
+             li
+               a.dropdown-item(href="#") Delet card 
+      .dropdown(style="right: 3%;")
+          a(href="#", class="d-flex align-items-center text-white text-decoration-none dropdown-toggle", data-bs-toggle="dropdown", aria-expanded="false")
+             img(style="color: white;" alt="" width="32" height="32" class="rounded-circle me-2")
+             strong #{username}
+           ul.dropdown-menu.dropdown-menu-dark.text-small.shadow
+             li
+               a.dropdown-item(href="#") Reset password
+             li
+               a.dropdown-item(href="#") Settings
+             li
+               hr.dropdown-divider
+             li
+               a.dropdown-item(href="/") Sign out

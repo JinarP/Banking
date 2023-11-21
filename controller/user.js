@@ -8,7 +8,7 @@ var LocalStorage = require('node-localstorage').LocalStorage,
 localStorage = new LocalStorage('./scratch');
 
 let id;
-app.post('/user/login', async (req, res) => {
+app.post('/user/login/', async (req, res) => {
   try {
     const username = req.body.username;
     const psw = req.body.password;

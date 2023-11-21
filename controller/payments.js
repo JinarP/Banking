@@ -20,7 +20,7 @@ async function  makePay(number) {
   app.post('/pay', async (req, res) => {
      let value = req.body.value
      makePay(value);
-     res.render('newcard')
+     res.render('payments/pay')
   });
 
 app.post('/payments/addcard', async (req, res) => {
